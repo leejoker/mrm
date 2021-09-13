@@ -21,8 +21,10 @@ module Mrm
       end
 
       def config_file(path = "#{user_home}/.m2/settings.xml")
-        puts "Can't find command mvn"
-        return if maven_home.nil?
+        if maven_home.nil?
+          puts "Can't find command mvn"
+          return
+        end
 
         path = "#{maven_home}/conf/settings.xml" unless File.exist?(path)
         path

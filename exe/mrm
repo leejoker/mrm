@@ -1,3 +1,72 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
+require "thor"
 require "mrm"
+
+# mrm command line
+class MrmConsole < Thor
+  def self.exit_on_failure?
+    true
+  end
+
+  desc "help", "help messages"
+
+  def help
+    puts <<~HELP
+      Usage: mrm [arguments]
+        help      help messages
+        ls        list all available mirrors
+        use       use a mirror as default
+        show      show current mirrors
+        restore   restore your config file
+    HELP
+  end
+
+  desc "ls", "list all available mirrors"
+
+  def ls
+    puts <<~MIRRORS
+      aliyun    https://maven.aliyun.com/repository/public
+      163       http://mirrors.163.com/maven/repository/maven-public/
+      tencent   http://mirrors.cloud.tencent.com/nexus/repository/maven-public/
+      huawei    https://repo.huaweicloud.com/repository/maven/
+    MIRRORS
+  end
+
+  desc "use", "use a mirror as default"
+
+  def use(mirror)
+    mirror = "aliyun" if mirror.nil?
+    settings = Mrm::SettingsXML.new(Mrm::MavenSettings.config_file)
+    case mirror
+    when "aliyun"
+      settings.change_mirror(Mrm::Repositories::ALIYUN)
+    when "163"
+      settings.change_mirror(Mrm::Repositories::NETEASE)
+    when "tencent"
+      settings.change_mirror(Mrm::Repositories::TENCENT)
+    when "huawei"
+      settings.change_mirror(Mrm::Repositories::HUAWEI)
+    else
+      puts "invalid mirror name"
+    end
+    settings.write_config
+  end
+
+  desc "show", "show current mirrors"
+
+  def show
+    Mrm::SettingsXML.new(Mrm::MavenSettings.config_file).repositories.each do |repo|
+      puts "name: #{repo.css("name").inner_text}  url: #{repo.css("url").inner_text}"
+    end
+  end
+
+  desc "restore", "restore origin config file"
+
+  def restore
+    Mrm::SettingsXML.new(Mrm::MavenSettings.config_file).restore_settings
+  end
+end
+
+MrmConsole.start

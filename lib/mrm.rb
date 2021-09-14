@@ -12,9 +12,9 @@ module Mrm
     class << self
       def maven_home
         m2_home = ENV["M2_HOME"] if ENV["MAVEN_HOME"].nil?
+        mvn_path = where_mvn
         if m2_home.nil?
-          path_array = `#{where_mvn}`&.split("\n")
-          File.expand_path("../..", path_array[0]) unless path_array.nil?
+          File.expand_path("../..", mvn_path) unless mvn_path.nil?
         else
           m2_home
         end
@@ -29,9 +29,12 @@ module Mrm
 
       def where_mvn
         if os == :windows
-          "where mvn"
+          p = `where mvn`&.split("\n")
+          p[0] unless p.nil?
         else
-          "whereis mvn"
+          p = `whereis mvn`.gsub("/mvn:/", "")
+          a = p&.split(" ")
+          a[0] unless a.nil?
         end
       end
 

@@ -34,10 +34,26 @@ module Mrm
       end
 
       def user_home
-        if ENV["OS"].index("Windows").nil?
-          Dir.home
-        else
+        if os == :windows
           ENV["USERPROFILE"]
+        else
+          Dir.home
+        end
+      end
+
+      def os
+        host_os = RbConfig::CONFIG["host_os"]
+        case host_os
+        when /mswin|msys|mingw|cygwin|bccwin|wince|emc/
+          :windows
+        when /darwin|mac os/
+          :macosx
+        when /linux/
+          :linux
+        when /solaris|bsd/
+          :unix
+        else
+          raise "unknown os: #{host_os.inspect}"
         end
       end
     end

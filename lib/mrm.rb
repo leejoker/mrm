@@ -13,8 +13,8 @@ module Mrm
       def maven_home
         m2_home = ENV["M2_HOME"] if ENV["MAVEN_HOME"].nil?
         if m2_home.nil?
-          path_array = `#{where_mvn}`.split("\n")
-          File.expand_path("../..", path_array[0])
+          path_array = `#{where_mvn}`&.split("\n")
+          File.expand_path("../..", path_array[0]) unless path_array.nil?
         else
           m2_home
         end

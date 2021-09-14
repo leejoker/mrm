@@ -10,6 +10,8 @@ module Mrm
 
     def initialize(settings_file)
       @settings_file = settings_file
+      return if settings_file.nil?
+
       @doc = Nokogiri::XML(File.open(@settings_file))
       @repositories = @doc.css("mirror")
     end

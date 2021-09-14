@@ -14,7 +14,7 @@ module Mrm
         m2_home = ENV["M2_HOME"] if ENV["MAVEN_HOME"].nil?
         mvn_path = where_mvn
         if m2_home.nil?
-          File.expand_path("../..", mvn_path) unless mvn_path.nil?
+          File.expand_path("../..", mvn_path) unless mvn_path.nil? || mvn_path.empty?
         else
           m2_home
         end
@@ -23,7 +23,7 @@ module Mrm
       def config_file(path = "#{user_home}/.m2/settings.xml")
         raise "Can't find command mvn" if maven_home.nil?
 
-        path = "#{maven_home}/conf/settings.xml" if path.nil?
+        path = "#{maven_home}/conf/settings.xml" unless File.exist?(path)
         path
       end
 

@@ -28,9 +28,11 @@ module Mrm
       end
 
       def where_mvn
-        where_command = "whereis mvn"
-        where_command = "where mvn" unless ENV["OS"].index("Windows").nil?
-        where_command
+        if os == :windows
+          "where mvn"
+        else
+          "whereis mvn"
+        end
       end
 
       def user_home

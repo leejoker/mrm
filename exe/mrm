@@ -57,7 +57,7 @@ class MrmConsole < Thor
   desc "show", "show current mirrors"
 
   def show
-    Mrm::SettingsXML.new(Mrm::MavenSettings.config_file).repositories.each do |repo|
+    Mrm::SettingsXML.new(Mrm::MavenSettings.config_file).repositories&.each do |repo|
       puts "name: #{repo.css("name").inner_text}  url: #{repo.css("url").inner_text}"
     end
   end

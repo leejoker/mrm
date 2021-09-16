@@ -1,5 +1,11 @@
 # MRM - Maven Respository Manager
 
+[![build](https://img.shields.io/github/workflow/status/leejoker/mrm/Ruby/main?color=brightgreen)](https://github.com/leejoker/mrm/actions)
+[![issues](https://img.shields.io/github/issues/leejoker/mrm)](https://github.com/leejoker/mrm/issues)
+[![forks](https://img.shields.io/github/forks/leejoker/mrm)](https://github.com/leejoker/mrm/network/members)
+[![stars](https://img.shields.io/github/stars/leejoker/mrm)](https://github.com/leejoker/mrm/stargazers)
+[![license](https://img.shields.io/github/license/leejoker/mrm)](https://github.com/leejoker/mrm/blob/main/LICENSE)
+
 Just like nrm on npm, mrm is a repo switcher on maven.
 
 ## Installation

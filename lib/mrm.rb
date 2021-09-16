@@ -14,6 +14,7 @@ module Mrm
         m2_home = ENV["M2_HOME"] if ENV["MAVEN_HOME"].nil?
         mvn_path = where_mvn
         if m2_home.nil?
+          puts mvn_path
           File.expand_path("../..", mvn_path) unless mvn_path.nil? || mvn_path.empty?
         else
           m2_home

@@ -12,8 +12,12 @@ module Mrm
       @settings_file = settings_file
       return if settings_file.nil?
 
-      @doc = Nokogiri::XML(File.open(@settings_file))
-      @repositories = @doc.css("mirror")
+      begin
+        @doc = Nokogiri::XML(File.open(@settings_file))
+        @repositories = @doc.css("mirror")
+      rescue StandardError
+        puts "Config file not found!"
+      end
     end
 
     def backup_settings

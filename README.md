@@ -1,4 +1,5 @@
 # MRM - Maven Respository Manager
+![Build mrm](https://github.com/leejoker/mrm/workflows/Build%20mrm/badge.svg?branch=main)
 
 Just like nrm on npm, mrm is a repo switcher on maven.
 

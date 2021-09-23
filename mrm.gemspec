@@ -29,6 +29,5 @@ Gem::Specification.new do |spec|
 
   # Uncomment to register a new dependency of your gem
   spec.add_dependency "nokogiri", "~> 1.12.4"
-  spec.add_dependency "open3", "~> 0.1.1"
   spec.add_dependency "thor", "~> 1.1.0"
 end

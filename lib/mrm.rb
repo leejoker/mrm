@@ -3,7 +3,6 @@
 require_relative "mrm/version"
 require_relative "mrm/xml"
 require_relative "mrm/repositories"
-require 'open3'
 
 module Mrm
   class Error < StandardError; end
@@ -34,12 +33,10 @@ module Mrm
 
       def where_mvn
         if os == :windows
-          std_out, = Open3.capture2("where mvn")
-          p = std_out&.split("\n")
+          p = `where mvn`&.split("\n")
           p[0] unless p.nil?
         else
-          std_out, = Open3.capture2("whereis mvn")
-          p = std_out&.gsub(/mvn:/, "")
+          p = `whereis mvn`.gsub(/mvn:/, "")
           a = p&.split(" ")
           a[0] unless a.nil?
         end

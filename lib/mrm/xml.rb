@@ -27,8 +27,12 @@ module Mrm
 
     def restore_settings
       bak_file = "#{@settings_file}.bak"
-      FileUtils.cp(bak_file, @settings_file) if File.exist?(bak_file)
-      File.delete(bak_file)
+      if File.exist?(bak_file)
+        FileUtils.cp(bak_file, @settings_file)
+        File.delete(bak_file)
+      else
+        puts "#{bak_file} doesn't exist"
+      end
     end
 
     def delete_mirrors
